@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dyhdyh.compat.panelkeyboard.KeyboardRootLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/keyboard_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/ed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="请输入文字"
+                    android:padding="12dp"
+                    android:textColorHint="@color/colorTextHint"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/emoji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:padding="7dp"
+                    android:src="@drawable/chatting_plus_btn_icon" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDivider" />
+
+        </LinearLayout>
+
+        <com.dyhdyh.compat.panelkeyboard.KeyboardPanelLayout
+            android:id="@+id/panel_layout"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/panel_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/send_img_tv"
+                    style="@style/PanelItem"
+                    android:drawableTop="@drawable/chatting_pic_icon"
+                    android:text="图片" />
+
+                <TextView
+                    style="@style/PanelItem"
+                    android:drawableTop="@drawable/chatting_site_icon"
+                    android:text="位置" />
+            </LinearLayout>
+        </com.dyhdyh.compat.panelkeyboard.KeyboardPanelLayout>
+    </LinearLayout>
+</com.dyhdyh.compat.panelkeyboard.KeyboardRootLayout>

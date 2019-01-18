@@ -1,76 +1,72 @@
-package sj.keyboard.utils;
+package com.dyhdyh.compat.panelkeyboard;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Paint;
+import android.content.ContextWrapper;
 import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
+import android.view.ContextThemeWrapper;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
-public class EmoticonsKeyboardUtils {
+public class KeyboardUtils {
 
-    private static final String EXTRA_DEF_KEYBOARDHEIGHT = "DEF_KEYBOARDHEIGHT";
-    private static final int DEF_KEYBOARD_HEAGH_WITH_DP = 300;
+    private static final String EXTRA_DEF_KEYBOARD_HEIGHT = "DEF_KEYBOARDHEIGHT";
     private static int sDefKeyboardHeight = -1;
-
-    private static DisplayMetrics getDisplayMetrics(Context context) {
-        DisplayMetrics dm = new DisplayMetrics();
-        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
-        return dm;
-    }
-
-    public static int getDisplayWidthPixels(Context context) {
-        return getDisplayMetrics(context).widthPixels;
-    }
-
-    public static int dip2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
-    }
-
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
-    public static int getFontHeight(TextView textView) {
-        Paint paint = new Paint();
-        paint.setTextSize(textView.getTextSize());
-        Paint.FontMetrics fm = paint.getFontMetrics();
-        return (int) Math.ceil(fm.bottom - fm.top);
-    }
-
-    public static View getRootView(Activity context) {
-        return ((ViewGroup) context.findViewById(android.R.id.content)).getChildAt(0);
-    }
 
     public static int getDefKeyboardHeight(Context context) {
         if (sDefKeyboardHeight < 0) {
-            sDefKeyboardHeight = dip2px(context, DEF_KEYBOARD_HEAGH_WITH_DP);
+            sDefKeyboardHeight = context.getResources().getDimensionPixelSize(R.dimen.def_keyboard_height);
         }
-        int height = PreferenceManager.getDefaultSharedPreferences(context).getInt(EXTRA_DEF_KEYBOARDHEIGHT, 0);
+        int height = PreferenceManager.getDefaultSharedPreferences(context).getInt(EXTRA_DEF_KEYBOARD_HEIGHT, 0);
         return sDefKeyboardHeight = height > 0 && sDefKeyboardHeight != height ? height : sDefKeyboardHeight;
     }
 
     public static void setDefKeyboardHeight(Context context, int height) {
         if (sDefKeyboardHeight != height) {
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(EXTRA_DEF_KEYBOARDHEIGHT, height).apply();
-            EmoticonsKeyboardUtils.sDefKeyboardHeight = height;
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(EXTRA_DEF_KEYBOARD_HEIGHT, height).apply();
+            KeyboardUtils.sDefKeyboardHeight = height;
         }
     }
 
-    public static boolean isFullScreen(final Activity activity) {
-        return (activity.getWindow().getAttributes().flags &
+    public static boolean isFullScreen(final Context context) {
+        if (context instanceof Activity) {
+            return isFullScreen(((Activity) context).getWindow());
+        } else if (context instanceof ContextThemeWrapper) {
+            Context baseContext = ((ContextWrapper) context).getBaseContext();
+            if (baseContext instanceof Activity) {
+                return isFullScreen(((Activity) baseContext).getWindow());
+            }
+        }
+        return false;
+    }
+
+
+    public static boolean isFullScreen(final Dialog dialog) {
+        if (dialog == null || dialog.getWindow() == null) {
+            return false;
+        }
+        return isFullScreen(dialog.getWindow());
+    }
+
+
+    /**
+     * 是否全屏
+     *
+     * @param window
+     * @return
+     */
+    public static boolean isFullScreen(final Window window) {
+        return (window.getAttributes().flags &
                 WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
     }
 
     /**
      * 开启软键盘
+     *
      * @param et
      */
     public static void openSoftKeyboard(EditText et) {
@@ -85,18 +81,19 @@ public class EmoticonsKeyboardUtils {
 
     /**
      * 关闭软键盘
+     *
      * @param context
      */
     public static void closeSoftKeyboard(Context context) {
         if (context == null || !(context instanceof Activity) || ((Activity) context).getCurrentFocus() == null) {
             return;
         }
-        try{
+        try {
             View view = ((Activity) context).getCurrentFocus();
             InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             view.clearFocus();
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -104,6 +101,7 @@ public class EmoticonsKeyboardUtils {
     /**
      * 关闭软键盘
      * 当使用全屏主题的时候,XhsEmoticonsKeyBoard屏蔽了焦点.关闭软键盘时,直接指定 closeSoftKeyboard(EditView)
+     *
      * @param view
      */
     public static void closeSoftKeyboard(View view) {

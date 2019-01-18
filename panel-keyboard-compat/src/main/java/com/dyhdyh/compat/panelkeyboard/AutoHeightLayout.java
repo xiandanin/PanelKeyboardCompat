@@ -1,4 +1,4 @@
-package sj.keyboard.widget;
+package com.dyhdyh.compat.panelkeyboard;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,9 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import sj.keyboard.utils.EmoticonsKeyboardUtils;
-
-public abstract class AutoHeightLayout extends SoftKeyboardSizeWatchLayout implements SoftKeyboardSizeWatchLayout.OnResizeListener {
+public abstract class AutoHeightLayout extends SoftKeyboardSizeWatchLayout{
 
     protected Context mContext;
     protected int mMaxParentHeight;
@@ -20,29 +18,15 @@ public abstract class AutoHeightLayout extends SoftKeyboardSizeWatchLayout imple
     public AutoHeightLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-        mSoftKeyboardHeight = EmoticonsKeyboardUtils.getDefKeyboardHeight(mContext);
-        addOnResizeListener(this);
+        mSoftKeyboardHeight = KeyboardUtils.getDefKeyboardHeight(mContext);
     }
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        int childSum = getChildCount();
-        if (childSum > 1) {
+        if (getChildCount() > 1) {
             throw new IllegalStateException("can host only one direct child");
         }
         super.addView(child, index, params);
-        /*if (childSum == 0) {
-            if (child.getId() == View.NO_ID) {
-                child.setId(R.id.auto_height_layout);
-            }
-            LayoutParams paramsChild = (LayoutParams) child.getLayoutParams();
-            paramsChild.addRule(ALIGN_PARENT_BOTTOM);
-            child.setLayoutParams(paramsChild);
-        } else if (childSum == 1) {
-            LayoutParams paramsChild = (LayoutParams) child.getLayoutParams();
-            paramsChild.addRule(ABOVE, R.id.auto_height_layout);
-            child.setLayoutParams(paramsChild);
-        }*/
     }
 
     @Override
@@ -69,7 +53,7 @@ public abstract class AutoHeightLayout extends SoftKeyboardSizeWatchLayout imple
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mConfigurationChangedFlag = true;
-        mScreenHeight = 0;
+        mWindowHeight = 0;
     }
 
     @Override
@@ -78,10 +62,10 @@ public abstract class AutoHeightLayout extends SoftKeyboardSizeWatchLayout imple
             mConfigurationChangedFlag = false;
             Rect r = new Rect();
             ((Activity) mContext).getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
-            if (mScreenHeight == 0) {
-                mScreenHeight = r.bottom;
+            if (mWindowHeight == 0) {
+                mWindowHeight = r.bottom;
             }
-            int mNowh = mScreenHeight - r.bottom;
+            int mNowh = mWindowHeight - r.bottom;
             mMaxParentHeight = mNowh;
         }
 
@@ -95,16 +79,13 @@ public abstract class AutoHeightLayout extends SoftKeyboardSizeWatchLayout imple
     }
 
     @Override
-    public void OnSoftPop(final int height) {
-        if (mSoftKeyboardHeight != height) {
-            mSoftKeyboardHeight = height;
-            EmoticonsKeyboardUtils.setDefKeyboardHeight(mContext, mSoftKeyboardHeight);
+    protected void onKeyboardShow(int keyboardHeight) {
+        if (mSoftKeyboardHeight != keyboardHeight) {
+            mSoftKeyboardHeight = keyboardHeight;
+            KeyboardUtils.setDefKeyboardHeight(mContext, mSoftKeyboardHeight);
             onSoftKeyboardHeightChanged(mSoftKeyboardHeight);
         }
     }
-
-    @Override
-    public void OnSoftClose() { }
 
     public abstract void onSoftKeyboardHeightChanged(int height);
 

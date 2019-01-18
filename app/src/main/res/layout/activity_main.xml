@@ -1,90 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.dyhdyh.compat.panelkeyboard.PanelKeyboardLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/keyboard_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <LinearLayout
-        android:background="@android:color/white"
+    <CheckBox
+        android:id="@+id/cb_translucent_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:text="Translucent Status" />
 
-        <LinearLayout
-            android:id="@+id/layout_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <CheckBox
+        android:id="@+id/cb_fullscreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fullscreen" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/colorDivider" />
+    <CheckBox
+        android:id="@+id/cb_fit_system_windows"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fitSystemWindows" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+    <Button
+        android:id="@+id/btn_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity" />
 
-                <EditText
-                    android:id="@+id/ed"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:hint="请输入文字"
-                    android:padding="12dp"
-                    android:textColorHint="@color/colorTextHint"
-                    android:textSize="15sp" />
+    <Button
+        android:id="@+id/btn_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fragment" />
 
-                <ImageView
-                    android:id="@+id/emoji"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|center"
-                    android:padding="7dp"
-                    android:src="@drawable/chatting_plus_btn_icon" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/colorDivider" />
-
-        </LinearLayout>
-
-        <sj.keyboard.widget.FuncLayout
-            android:id="@+id/panel_container"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:id="@+id/panel_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/send_img_tv"
-                    style="@style/PanelItem"
-                    android:drawableTop="@drawable/chatting_pic_icon"
-                    android:text="图片" />
-
-                <TextView
-                    style="@style/PanelItem"
-                    android:drawableTop="@drawable/chatting_site_icon"
-                    android:text="位置" />
-            </LinearLayout>
-        </sj.keyboard.widget.FuncLayout>
-    </LinearLayout>
-</com.dyhdyh.compat.panelkeyboard.PanelKeyboardLayout>
+    <Button
+        android:id="@+id/btn_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dialog" />
+</LinearLayout>
