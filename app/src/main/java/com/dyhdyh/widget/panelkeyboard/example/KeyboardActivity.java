@@ -1,7 +1,9 @@
-package com.dyhdyh.compat.panelkeyboard.example;
+package com.dyhdyh.widget.panelkeyboard.example;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -9,10 +11,10 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 
-import com.dyhdyh.compat.panelkeyboard.KeyboardRootLayout;
-
-import com.dyhdyh.compat.panelkeyboard.KeyboardUtils;
-import com.dyhdyh.compat.panelkeyboard.KeyboardPanelLayout;
+import com.dyhdyh.widget.panelkeyboard.KeyboardPanelLayout;
+import com.dyhdyh.widget.panelkeyboard.KeyboardRootLayout;
+import com.dyhdyh.widget.panelkeyboard.KeyboardUtils;
+import com.dyhdyh.widget.panelkeyboard.example.adapter.ExampleItemAdapter;
 
 public class KeyboardActivity extends AppCompatActivity {
     private final String TAG = "KeyboardActivity";
@@ -43,11 +45,17 @@ public class KeyboardActivity extends AppCompatActivity {
         panelLayout = findViewById(R.id.panel_layout);
         keyboardLayout = findViewById(R.id.keyboard_layout);
 
-        final EditText ed = findViewById(R.id.ed);
-        findViewById(R.id.emoji).setOnClickListener(new View.OnClickListener() {
+        final EditText editText = findViewById(R.id.ed);
+        findViewById(R.id.iv_emoji).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                panelLayout.toggleFuncView(keyboardLayout.isKeyboardShow(), ed);
+                panelLayout.togglePanelView(R.id.panel_emoji, keyboardLayout.isKeyboardShow(), editText);
+            }
+        });
+        findViewById(R.id.iv_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                panelLayout.togglePanelView(R.id.panel_func, keyboardLayout.isKeyboardShow(), editText);
             }
         });
 
@@ -70,6 +78,7 @@ public class KeyboardActivity extends AppCompatActivity {
             }
         });
 
+        initExampleView();
     }
 
 
@@ -79,5 +88,12 @@ public class KeyboardActivity extends AppCompatActivity {
             return true;
         }
         return super.dispatchKeyEvent(event);
+    }
+
+
+    private void initExampleView() {
+        RecyclerView rv = findViewById(R.id.rv_func);
+        rv.setLayoutManager(new GridLayoutManager(this, 4));
+        rv.setAdapter(new ExampleItemAdapter());
     }
 }

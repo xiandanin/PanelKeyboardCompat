@@ -1,0 +1,44 @@
+ext {
+    android =
+            [
+                    applicationId    : "com.dyhdyh.widget.panelkeyboard.example",
+
+                    //版本号
+                    versionCode      : 1,
+                    versionName      : "1.0.0",
+
+                    //sdk版本
+                    compileSdkVersion: 28,
+                    minSdkVersion    : 14,
+                    targetSdkVersion : 28,
+                    supportVersion   : "28.0.0",
+            ]
+
+    jcenter =
+            [
+                    //项目名称
+                    name       : "PanelKeyboardCompat",
+                    groupId    : "com.dyhdyh.widget",
+                    //项目地址
+                    siteUrl    : "https://github.com/dengyuhan/PanelKeyboardCompat",
+                    //项目git地址
+                    gitUrl     : "https://github.com/dengyuhan/PanelKeyboardCompat.git",
+                    //项目描述
+                    description: "在XhsEmoticonsKeyboard的基础上进行了改进并提高了兼容性和易用性",
+                    //开发者的一些基本信息
+                    authorId   : "dengyuhan",
+                    authorName : "dengyuhan",
+                    authorEmail: "denghahae@qq.com",
+
+                    //开源协议
+                    licenses   : {
+                        license {
+                            name 'MIT'
+                            url 'https://opensource.org/licenses/MIT'
+                        }
+                    },
+                    licenseName: 'MIT'
+            ]
+
+
+}

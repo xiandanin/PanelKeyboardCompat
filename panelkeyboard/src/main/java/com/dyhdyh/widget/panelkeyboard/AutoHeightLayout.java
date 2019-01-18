@@ -1,4 +1,4 @@
-package com.dyhdyh.compat.panelkeyboard;
+package com.dyhdyh.widget.panelkeyboard;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class AutoHeightLayout extends SoftKeyboardSizeWatchLayout{
+public abstract class AutoHeightLayout extends SoftKeyboardSizeWatchLayout {
 
     protected Context mContext;
     protected int mMaxParentHeight;

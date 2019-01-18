@@ -3,6 +3,6 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">@color/colorPrimary</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorDivider">#d4d4d4</color>
+    <color name="colorDivider">#d8d8d8</color>
     <color name="colorTextHint">#a4a4a4</color>
 </resources>

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="def_keyboard_height">300dp</dimen>
+    <dimen name="def_keyboard_height">272dp</dimen>
 </resources>

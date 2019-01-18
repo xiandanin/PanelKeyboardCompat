@@ -1,4 +1,4 @@
-package com.dyhdyh.compat.panelkeyboard.example;
+package com.dyhdyh.widget.panelkeyboard.example;
 
 import android.content.Intent;
 import android.os.Bundle;

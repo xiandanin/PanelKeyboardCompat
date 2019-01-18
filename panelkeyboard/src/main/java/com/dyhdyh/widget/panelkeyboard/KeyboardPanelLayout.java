@@ -1,4 +1,4 @@
-package com.dyhdyh.compat.panelkeyboard;
+package com.dyhdyh.widget.panelkeyboard;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,9 +6,9 @@ import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
-public class KeyboardPanelLayout extends LinearLayout {
+public class KeyboardPanelLayout extends RelativeLayout {
 
     public static final int DEF_KEY = Integer.MIN_VALUE;
     public static final int SINGLE_KEY = 0;
@@ -24,22 +24,11 @@ public class KeyboardPanelLayout extends LinearLayout {
 
     public KeyboardPanelLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOrientation(VERTICAL);
-    }
-
-    private void addFuncView(int key, View view) {
-        if (mFuncViewArrayMap.get(key) != null) {
-            return;
-        }
-        mFuncViewArrayMap.put(key, view);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        super.addView(view, params);
-        view.setVisibility(GONE);
     }
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        mFuncViewArrayMap.put(SINGLE_KEY, child);
+        mFuncViewArrayMap.put(child.getId(), child);
         super.addView(child, index, params);
         child.setVisibility(GONE);
 
@@ -54,11 +43,11 @@ public class KeyboardPanelLayout extends LinearLayout {
         setVisibility(View.GONE);
     }
 
-    public void toggleFuncView(boolean isKeyboardShow, EditText editText) {
-        toggleFuncView(SINGLE_KEY, isKeyboardShow, editText);
+    public void togglePanelView(boolean isKeyboardShow, EditText editText) {
+        togglePanelView(SINGLE_KEY, isKeyboardShow, editText);
     }
 
-    public void toggleFuncView(int key, boolean isKeyboardShow, EditText editText) {
+    public void togglePanelView(int key, boolean isKeyboardShow, EditText editText) {
         if (getVisibility() == View.VISIBLE && getCurrentFuncKey() == key) {
             if (isKeyboardShow) {
                 if (KeyboardUtils.isFullScreen(getContext())) {
@@ -116,7 +105,7 @@ public class KeyboardPanelLayout extends LinearLayout {
     @Override
     public void setVisibility(int visibility) {
         super.setVisibility(visibility);
-        LayoutParams params = (LayoutParams) getLayoutParams();
+        ViewGroup.LayoutParams params = getLayoutParams();
         if (View.VISIBLE == visibility) {
             params.height = mHeight;
             if (mOnPanelStatusListener != null) {
