@@ -1,0 +1,1 @@
+include ':app', ':panel-keyboard-compat'
