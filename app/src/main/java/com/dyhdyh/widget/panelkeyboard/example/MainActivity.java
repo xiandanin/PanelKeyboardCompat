@@ -18,17 +18,20 @@ public class MainActivity extends AppCompatActivity {
         cb_fullscreen = findViewById(R.id.cb_fullscreen);
         cb_fit_system_windows = findViewById(R.id.cb_fit_system_windows);
 
-        findViewById(R.id.btn_activity).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startKeyboardActivity();
-            }
-        });
     }
 
 
-    public void startKeyboardActivity() {
-        Intent intent = new Intent(this, KeyboardActivity.class);
+    public void clickActivity(View v) {
+        startExampleActivity(KeyboardActivity.class);
+    }
+
+    public void clickDialog(View view) {
+        startExampleActivity(DialogExampleActivity.class);
+    }
+
+
+    private void startExampleActivity(Class cls) {
+        Intent intent = new Intent(this, cls);
         intent.putExtra("translucent_status", cb_translucent_status.isChecked());
         intent.putExtra("fullscreen", cb_fullscreen.isChecked());
         intent.putExtra("fit_system_windows", cb_fit_system_windows.isChecked());

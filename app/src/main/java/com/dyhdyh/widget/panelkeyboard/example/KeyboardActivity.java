@@ -1,14 +1,11 @@
 package com.dyhdyh.widget.panelkeyboard.example;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.dyhdyh.widget.panelkeyboard.KeyboardPanelLayout;
@@ -16,7 +13,7 @@ import com.dyhdyh.widget.panelkeyboard.KeyboardRootLayout;
 import com.dyhdyh.widget.panelkeyboard.KeyboardUtils;
 import com.dyhdyh.widget.panelkeyboard.example.adapter.ExampleItemAdapter;
 
-public class KeyboardActivity extends AppCompatActivity {
+public class KeyboardActivity extends BaseActivity {
     private final String TAG = "KeyboardActivity";
 
     private KeyboardRootLayout keyboardLayout;
@@ -25,23 +22,6 @@ public class KeyboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean translucentStatus = getIntent().getBooleanExtra("translucent_status", false);
-        boolean fullscreen = getIntent().getBooleanExtra("fullscreen", false);
-        boolean fitSystemWindows = getIntent().getBooleanExtra("fit_system_windows", false);
-
-        if (translucentStatus) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-        if (fullscreen) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-
-        setContentView(R.layout.activity_keyboard);
-
-        if (fitSystemWindows) {
-            ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0).setFitsSystemWindows(true);
-        }
-
         panelLayout = findViewById(R.id.panel_layout);
         keyboardLayout = findViewById(R.id.keyboard_layout);
 
@@ -79,6 +59,11 @@ public class KeyboardActivity extends AppCompatActivity {
         });
 
         initExampleView();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_keyboard;
     }
 
 

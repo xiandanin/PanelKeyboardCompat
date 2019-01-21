@@ -1,10 +1,14 @@
 package com.dyhdyh.widget.panelkeyboard;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.util.AttributeSet;
 import android.util.SparseArray;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
@@ -43,28 +47,28 @@ public class KeyboardPanelLayout extends RelativeLayout {
         setVisibility(View.GONE);
     }
 
-    public void togglePanelView(boolean isKeyboardShow, EditText editText) {
-        togglePanelView(SINGLE_KEY, isKeyboardShow, editText);
+    public void togglePanelView(int key, boolean isKeyboardShow, EditText editText) {
+        final Context context = getContext();
+        if (context instanceof Activity) {
+            togglePanelView(((Activity) getContext()).getWindow(), key, isKeyboardShow, editText);
+        } else if (context instanceof ContextThemeWrapper) {
+            Context baseContext = ((ContextWrapper) context).getBaseContext();
+            if (baseContext instanceof Activity) {
+                togglePanelView(((Activity) baseContext).getWindow(), key, isKeyboardShow, editText);
+            }
+        }
     }
 
-    public void togglePanelView(int key, boolean isKeyboardShow, EditText editText) {
+    public void togglePanelView(Window window, int key, boolean isKeyboardShow, EditText editText) {
         if (getVisibility() == View.VISIBLE && getCurrentFuncKey() == key) {
             if (isKeyboardShow) {
-                if (KeyboardUtils.isFullScreen(getContext())) {
-                    KeyboardUtils.closeSoftKeyboard(editText);
-                } else {
-                    KeyboardUtils.closeSoftKeyboard(getContext());
-                }
+                KeyboardUtils.closeSoftKeyboardCompat(window, editText);
             } else {
                 KeyboardUtils.openSoftKeyboard(editText);
             }
         } else {
             if (isKeyboardShow) {
-                if (KeyboardUtils.isFullScreen(getContext())) {
-                    KeyboardUtils.closeSoftKeyboard(editText);
-                } else {
-                    KeyboardUtils.closeSoftKeyboard(getContext());
-                }
+                KeyboardUtils.closeSoftKeyboardCompat(window, editText);
             }
             showFuncView(key);
         }

@@ -14,7 +14,7 @@ public class SoftKeyboardSizeWatchLayout extends RelativeLayout {
     protected int mWindowHeight = 0;
     private boolean mKeyboardShow = false;
 
-    private View mRootView;
+    protected View mRootView;
 
     public SoftKeyboardSizeWatchLayout(final Context context, AttributeSet attrs) {
         super(context, attrs);

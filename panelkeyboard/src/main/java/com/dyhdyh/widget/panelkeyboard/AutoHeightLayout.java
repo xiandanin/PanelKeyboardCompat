@@ -1,6 +1,5 @@
 package com.dyhdyh.widget.panelkeyboard;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Rect;
@@ -61,7 +60,9 @@ public abstract class AutoHeightLayout extends SoftKeyboardSizeWatchLayout {
         if(mConfigurationChangedFlag){
             mConfigurationChangedFlag = false;
             Rect r = new Rect();
-            ((Activity) mContext).getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
+            if (mRootView != null) {
+                mRootView.getWindowVisibleDisplayFrame(r);
+            }
             if (mWindowHeight == 0) {
                 mWindowHeight = r.bottom;
             }

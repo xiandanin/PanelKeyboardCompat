@@ -1,7 +1,6 @@
 package com.dyhdyh.widget.panelkeyboard;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.preference.PreferenceManager;
@@ -44,15 +43,6 @@ public class KeyboardUtils {
         return false;
     }
 
-
-    public static boolean isFullScreen(final Dialog dialog) {
-        if (dialog == null || dialog.getWindow() == null) {
-            return false;
-        }
-        return isFullScreen(dialog.getWindow());
-    }
-
-
     /**
      * 是否全屏
      *
@@ -79,17 +69,26 @@ public class KeyboardUtils {
         }
     }
 
+
+    public static void closeSoftKeyboardCompat(Window window, EditText editText) {
+        if (KeyboardUtils.isFullScreen(window)) {
+            KeyboardUtils.closeSoftKeyboard(editText);
+        } else {
+            KeyboardUtils.closeSoftKeyboard(window);
+        }
+    }
+
     /**
      * 关闭软键盘
      *
-     * @param context
+     * @param window
      */
-    public static void closeSoftKeyboard(Context context) {
-        if (context == null || !(context instanceof Activity) || ((Activity) context).getCurrentFocus() == null) {
+    public static void closeSoftKeyboard(Window window) {
+        if (window == null || window.getCurrentFocus() == null) {
             return;
         }
         try {
-            View view = ((Activity) context).getCurrentFocus();
+            View view = window.getCurrentFocus();
             InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             view.clearFocus();
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);

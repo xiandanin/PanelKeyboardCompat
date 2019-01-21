@@ -26,19 +26,20 @@
         android:text="fitSystemWindows" />
 
     <Button
-        android:id="@+id/btn_activity"
+        android:onClick="clickActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Activity" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btn_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Fragment" />
 
     <Button
-        android:id="@+id/btn_dialog"
+        android:onClick="clickDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Dialog" />

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dyhdyh.widget.panelkeyboard.KeyboardRootLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/keyboard_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#f7f7f7"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp">
+
+                <EditText
+                    android:id="@+id/ed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_corner_white"
+                    android:paddingStart="8dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/colorTextHint"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/iv_emoji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="5dp"
+                    android:padding="7dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/icon_emoji" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDivider" />
+
+        </LinearLayout>
+
+        <com.dyhdyh.widget.panelkeyboard.KeyboardPanelLayout
+            android:id="@+id/panel_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/def_keyboard_height"
+            android:background="@android:color/white"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/panel_emoji"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="表情面板"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="50sp" />
+            </RelativeLayout>
+        </com.dyhdyh.widget.panelkeyboard.KeyboardPanelLayout>
+    </LinearLayout>
+</com.dyhdyh.widget.panelkeyboard.KeyboardRootLayout>
